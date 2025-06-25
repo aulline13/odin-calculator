@@ -152,7 +152,7 @@ document.addEventListener("keydown", (e) => {
         selector = `.equal`;
     } else if (key === "Backspace") {
         selector = `.C`;
-    } else if (key === "Delete") {
+    } else if (key === "Delete" || key === "Escape") {
         selector = `.AC`;
     }
 
