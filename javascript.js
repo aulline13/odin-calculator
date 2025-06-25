@@ -118,7 +118,22 @@ calculatorButtons.forEach((button) => {
             clearCalcVariables();
         }
         else if (button.classList.contains("C")) {
-            clearCalcVariables();
+            if (operator === "") {
+                // Remove last character from a
+                a = a.slice(0, -1);
+                calculatorDisplay.innerText = a;
+            } else if (b !== "") {
+                // Remove last character from b
+                b = b.slice(0, -1);
+                calculatorDisplay.innerText = b;
+                if (b === "") {
+                    calculatorDisplay.innerText = operator; // If b is empty, display operator
+                }
+            } else {
+                // If operator is set but b is empty, allow removing operator
+                operator = "";
+                calculatorDisplay.innerText = a;
+            }
         }
     })
 })
