@@ -67,12 +67,16 @@ calculatorButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
         if (button.classList.contains("number")) {
             if (operator === "") { // Read and display first number if no operator set yet
-                a += e.target.innerText;
-                calculatorDisplay.innerText = a;
+                if (a.length < 35) { // Prevent overflow
+                    a += e.target.innerText;
+                    calculatorDisplay.innerText = a;
+                }
             } 
             else { // Read and display second number if operator already pressed
-                b += e.target.innerText;
-                calculatorDisplay.innerText = b;
+                if (b.length  < 35) { // Prevent overflow
+                    b += e.target.innerText;
+                    calculatorDisplay.innerText = b;
+                }
             }
         }
         else if (button.classList.contains("operator")) {
