@@ -70,12 +70,12 @@ function operate(a, operator, b) {
 calculatorButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
         if (button.classList.contains("number")) {
-            if (evaluatedFlag) { // Pressing a number after getting result of 1st calculation
-                a = ""; // resets value of a
-                evaluatedFlag = false;
-                calculatorDot.disabled = false; // allows pressing the dot button
-            }
             if (operator === "") { // Read and display first number if no operator set yet
+                if (evaluatedFlag) { // Pressing a number after getting result of 1st calculation
+                    a = ""; // resets value of a
+                    evaluatedFlag = false;
+                    calculatorDot.disabled = false; // allows pressing the dot button
+                }
                 if (a.length < 35) { // Prevent overflow
                     if (a === "" && button.classList.contains("dot")) { // If dot is pressed before any number, "0." is displayed
                         a = "0";
@@ -137,7 +137,7 @@ calculatorButtons.forEach((button) => {
             }
             else {
                 operate(a, operator, b);
-                a = result; // If operator button is pressed after getting the result, use result as a in the next calculation
+                a = result.toString(); // If operator button is pressed after getting the result, use result as a in the next calculation
                 b = "";
                 operator = "";
                 result = "";
