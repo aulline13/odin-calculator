@@ -31,22 +31,32 @@ function clearCalcVariables() {
 }
 
 function operate(a, operator, b) {
+    a = +a;
+    b = +b;
     if (operator === "+") {
-        return sum(a, b);
+        result = sum(a, b);
+        calculatorDisplay.innerText = result;
+        return result;
     }
     else if (operator === "-") {
-        return subtract(a, b);
+        result = subtract(a, b);
+        calculatorDisplay.innerText = result;
+        return result;
     }
     else if (operator === "*") {
-        return multiply(a, b);
+        result = multiply(a, b);
+        calculatorDisplay.innerText = result;
+        return result;
     }
     else if (operator === "/") {
-        if (b == 0) {
+        if (b === 0) {
             calculatorDisplay.innerText = "Cannot divide by 0!";
             clearCalcVariables();
         }
         else {
-            return divide(a, b);
+            result = divide(a, b);
+            calculatorDisplay.innerText = result;
+            return result;
         }
     }
     else {
@@ -60,12 +70,10 @@ calculatorButtons.forEach((button) => {
             if (operator === "") { // Read and display first number if no operator set yet
                 a += e.target.innerText;
                 calculatorDisplay.innerText = a;
-                a = +a;
             } 
             else { // Read and display second number if operator already pressed
                 b += e.target.innerText;
                 calculatorDisplay.innerText = b;
-                b = +b;
             }
         }
         else if (button.classList.contains("operator")) {
@@ -90,8 +98,7 @@ calculatorButtons.forEach((button) => {
             }
         }
         else if (button.classList.contains("equal")) {
-            result = operate(a, operator, b);
-            calculatorDisplay.innerText = result;
+            operate(a, operator, b);
             a = result; // If operator button is pressed after getting the result, use result as a in the next calculation
             b = "";
             operator = "";
