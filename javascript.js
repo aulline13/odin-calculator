@@ -143,7 +143,7 @@ document.addEventListener("keydown", (e) => {
     let key = e.key;
 
     // Map keyboard keys to button selectors
-    let selector = null;
+    let selector = "";
     if ((key >= "0" && key <= "9") || key === ".") {
         selector = `.number[data-key="${key}"]`;
     } else if (["+", "-", "*", "/"].includes(key)) {
