@@ -139,4 +139,28 @@ calculatorButtons.forEach((button) => {
 })
 
 
+document.addEventListener("keydown", (e) => {
+    let key = e.key;
+
+    // Map keyboard keys to button selectors
+    let selector = null;
+    if ((key >= "0" && key <= "9") || key === ".") {
+        selector = `.number[data-key="${key}"]`;
+    } else if (["+", "-", "*", "/"].includes(key)) {
+        selector = `.operator[data-key="${key}"]`;
+    } else if (key === "Enter" || key === "=") {
+        selector = `.equal`;
+    } else if (key === "Backspace") {
+        selector = `.C`;
+    } else if (key === "Delete") {
+        selector = `.AC`;
+    }
+
+    if (selector) {
+        const button = calculatorButtonsContainer.querySelector(selector);
+        if (button) {
+            button.click();
+        }
+    }
+});
 
