@@ -1,11 +1,13 @@
 const calculatorButtonsContainer = document.querySelector(".buttons");
 const calculatorButtons = calculatorButtonsContainer.querySelectorAll("button");
 const calculatorDisplay = document.querySelector(".display");
+const calculatorDot = document.querySelector(".dot");
 
 let a = "";
 let operator = "";
 let b = "";
 let result = "";
+let evaluatedFlag = false;
 
 function sum(a, b) {
     return a + b;
@@ -30,6 +32,8 @@ function clearCalcVariables() {
     b = "";
     operator = "";
     result = ""; 
+    calculatorDot.disabled = false; 
+    evaluatedFlag = false;
 }
 
 function operate(a, operator, b) {
@@ -66,14 +70,39 @@ function operate(a, operator, b) {
 calculatorButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
         if (button.classList.contains("number")) {
+            if (evaluatedFlag) { // Pressing a number after getting result of 1st calculation
+                a = ""; // resets value of a
+                evaluatedFlag = false;
+                calculatorDot.disabled = false; // allows pressing the dot button
+            }
             if (operator === "") { // Read and display first number if no operator set yet
                 if (a.length < 35) { // Prevent overflow
+                    if (a === "" && button.classList.contains("dot")) { // If dot is pressed before any number, "0." is displayed
+                        a = "0";
+                        calculatorDisplay.innerText = a;
+                    }
+                    aArray = a.split("");
+                    for (i of aArray) {
+                        if (i === ".") {
+                            calculatorDot.disabled = true;
+                        }
+                    }
                     a += e.target.innerText;
                     calculatorDisplay.innerText = a;
                 }
             } 
             else { // Read and display second number if operator already pressed
                 if (b.length  < 35) { // Prevent overflow
+                    if (b === "" && button.classList.contains("dot")) { // If dot is pressed before any number, "0." is displayed
+                        b = "0";
+                        calculatorDisplay.innerText = b;
+                    }
+                    bArray = b.split("");
+                    for (i of bArray) {
+                        if (i === ".") {
+                            calculatorDot.disabled = true;
+                        }
+                    }
                     b += e.target.innerText;
                     calculatorDisplay.innerText = b;
                 }
@@ -99,6 +128,7 @@ calculatorButtons.forEach((button) => {
                     result = "";
                 }
             }
+            calculatorDot.disabled = false; // Allow to click the dot button when getting value of b
         }
         else if (button.classList.contains("equal")) {
             if (a === "" || operator === "" || b === "") {
@@ -110,8 +140,10 @@ calculatorButtons.forEach((button) => {
                 a = result; // If operator button is pressed after getting the result, use result as a in the next calculation
                 b = "";
                 operator = "";
-                result = ""; 
+                result = "";
+                evaluatedFlag = true;
             }
+            calculatorDot.disabled = false; // Allow to click the dot button after finishing calculation
         }
         else if (button.classList.contains("AC")) {
             calculatorDisplay.innerText = "";
