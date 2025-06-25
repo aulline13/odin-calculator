@@ -20,7 +20,9 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return a / b;
+    let beforeRounding = a / b;
+    let afterRounding = beforeRounding.toFixed(2);
+    return afterRounding = +afterRounding;
 }
 
 function clearCalcVariables() {
