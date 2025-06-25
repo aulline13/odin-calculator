@@ -1,6 +1,6 @@
 const calculatorButtonsContainer = document.querySelector(".buttons");
 const calculatorButtons = calculatorButtonsContainer.querySelectorAll("button");
-const calculatorDisplay = document.querySelector(".screen");
+const calculatorDisplay = document.querySelector(".display");
 
 let a;
 let operator;
