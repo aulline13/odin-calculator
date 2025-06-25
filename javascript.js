@@ -61,9 +61,6 @@ function operate(a, operator, b) {
             return result;
         }
     }
-    else {
-        calculatorDisplay.innerText = "Error";
-    }
 }
 
 calculatorButtons.forEach((button) => {
@@ -100,11 +97,17 @@ calculatorButtons.forEach((button) => {
             }
         }
         else if (button.classList.contains("equal")) {
-            operate(a, operator, b);
-            a = result; // If operator button is pressed after getting the result, use result as a in the next calculation
-            b = "";
-            operator = "";
-            result = ""; 
+            if (a === "" || operator === "" || b === "") {
+                calculatorDisplay.innerText = "Error！Not all values were entered.";
+                clearCalcVariables();
+            }
+            else {
+                operate(a, operator, b);
+                a = result; // If operator button is pressed after getting the result, use result as a in the next calculation
+                b = "";
+                operator = "";
+                result = ""; 
+            }
         }
         else if (button.classList.contains("AC")) {
             calculatorDisplay.innerText = "";
